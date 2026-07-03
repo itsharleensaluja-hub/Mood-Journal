@@ -1,11 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { GlassCard } from '../../common/GlassCard';
+import { ArtifactCard } from '../../archive/ArtifactCard';
+import { HandwrittenText } from '../../archive/HandwrittenText';
 
 export function QuoteCard({ quote }) {
   if (!quote) return null;
 
   return (
-    <GlassCard padding="md" variant="accent" color="plum">
+    <ArtifactCard variant="tipped">
       <AnimatePresence mode="wait">
         <motion.div
           key={quote.text}
@@ -14,14 +15,19 @@ export function QuoteCard({ quote }) {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.25 }}
         >
-          <p className="text-sm font-serif italic text-ink-700 dark:text-ink-300 leading-relaxed mb-2">
-            &ldquo;{quote.text}&rdquo;
-          </p>
-          <p className="text-xs text-ink-400 dark:text-ink-500">
-            &mdash; {quote.author || 'Unknown'}
-          </p>
+          <div className="flex items-start gap-3">
+            <span className="text-brass-400 text-lg leading-none mt-1">"</span>
+            <div>
+              <HandwrittenText size="base" className="text-ink-700 dark:text-ink-300 leading-relaxed mb-2">
+                {quote.text}
+              </HandwrittenText>
+              <HandwrittenText size="xs" color="ink-500">
+                — {quote.author || 'Unknown'}
+              </HandwrittenText>
+            </div>
+          </div>
         </motion.div>
       </AnimatePresence>
-    </GlassCard>
+    </ArtifactCard>
   );
 }

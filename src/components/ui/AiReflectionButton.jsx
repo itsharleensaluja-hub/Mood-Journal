@@ -7,7 +7,7 @@ export function AiReflectionButton() {
   return (
     <GlassCard
       padding="md"
-      variant="highlight"
+      variant="accent" color="plum"
       hoverable
       onClick={() => navigate('/reflection')}
       className="group"

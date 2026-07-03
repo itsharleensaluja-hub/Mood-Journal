@@ -5,7 +5,6 @@ import {
   calculateEmotionalBalance,
   getWeeklyMoodData,
   getMoodDistribution,
-  getMonthlyScore,
   getMostUsedMoods,
 } from '../utils/statsCalculators';
 import { getDailyAffirmation } from '../data/affirmations';

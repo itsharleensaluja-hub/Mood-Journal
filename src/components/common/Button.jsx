@@ -8,8 +8,6 @@ const variants = {
     'border border-ink-300 text-ink-700 hover:bg-earth-100 active:bg-earth-200 dark:border-ink-600 dark:text-ink-300 dark:hover:bg-ink-800 dark:active:bg-ink-700',
   ghost:
     'text-ink-600 hover:text-ink-900 hover:bg-earth-100 dark:text-ink-400 dark:hover:text-ink-200 dark:hover:bg-ink-800',
-  outline:
-    'border-2 border-plum-400 text-plum-600 hover:bg-plum-50 active:bg-plum-100 dark:border-plum-500 dark:text-plum-300 dark:hover:bg-plum-900/30',
   danger:
     'bg-clay-500 text-white hover:bg-clay-600 active:bg-clay-700 dark:bg-clay-600 dark:hover:bg-clay-500',
 };

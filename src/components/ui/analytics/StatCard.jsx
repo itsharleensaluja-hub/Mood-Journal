@@ -1,6 +1,6 @@
 import { useAnimatedCounter } from '../../../hooks/useAnimatedCounter';
 
-export function StatCard({ icon: Icon, label, value, suffix = '', color = 'plum', delay = 0 }) {
+export function StatCard({ label, value, suffix = '', color = 'plum' }) {
   const animatedValue = useAnimatedCounter(typeof value === 'number' ? value : 0);
 
   const dotColors = {

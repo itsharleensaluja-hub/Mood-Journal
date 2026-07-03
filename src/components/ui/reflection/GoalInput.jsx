@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { GlassCard } from '../../common/GlassCard';
+import { ArtifactCard } from '../../archive/ArtifactCard';
+import { HandwrittenText } from '../../archive/HandwrittenText';
 
 export function GoalInput({ suggestedGoal, onSave }) {
   const [goal, setGoal] = useState(suggestedGoal || '');
@@ -14,10 +15,10 @@ export function GoalInput({ suggestedGoal, onSave }) {
   };
 
   return (
-    <GlassCard padding="md">
-      <h4 className="text-xs font-medium text-ink-500 dark:text-ink-400 uppercase tracking-wider mb-3">
-        Tomorrow's Goal
-      </h4>
+    <ArtifactCard variant="pressed">
+      <HandwrittenText as="h4" size="sm" color="ink-500" className="typewriter text-[10px] uppercase tracking-widest mb-3">
+        Tomorrow's Intention
+      </HandwrittenText>
 
       <input
         type="text"
@@ -25,25 +26,25 @@ export function GoalInput({ suggestedGoal, onSave }) {
         onChange={(e) => setGoal(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && handleSave()}
         placeholder={suggestedGoal || 'Set an intention for tomorrow...'}
-        aria-label="Set tomorrow's goal"
-        className="w-full bg-transparent border-b-2 border-ink-200 dark:border-ink-700 pb-1.5 text-sm text-ink-800 dark:text-ink-100 placeholder:text-ink-400 dark:placeholder:text-ink-600 focus:outline-none focus:border-plum-400 dark:focus:border-plum-500 transition-colors duration-150"
+        aria-label="Set tomorrow's intention"
+        className="w-full bg-transparent border-b-2 border-ink-200 dark:border-ink-700 pb-1.5 handwriting text-lg text-ink-800 dark:text-ink-100 placeholder:text-ink-300 dark:placeholder:text-ink-600 placeholder:handwriting focus:outline-none focus:border-brass-400 dark:focus:border-brass-500 transition-colors duration-150"
       />
 
       <div className="flex justify-end mt-2">
         {isSaved ? (
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-herb-500 font-medium">
-            Goal saved
+          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="handwriting text-sm text-herb-500">
+            Sealed
           </motion.span>
         ) : (
           <button
             onClick={handleSave}
             disabled={!goal.trim()}
-            className="text-xs font-medium text-plum-500 hover:text-plum-600 disabled:text-ink-300 dark:disabled:text-ink-600 disabled:cursor-not-allowed transition-colors duration-150"
+            className="handwriting text-base text-ink-400 hover:text-ink-700 dark:text-ink-500 dark:hover:text-ink-300 disabled:text-ink-200 dark:disabled:text-ink-700 disabled:cursor-not-allowed transition-colors duration-150 focus-ring"
           >
-            Save
+            Seal
           </button>
         )}
       </div>
-    </GlassCard>
+    </ArtifactCard>
   );
 }

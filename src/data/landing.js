@@ -114,3 +114,42 @@ export const FOOTER_LINKS = {
     { label: 'Licenses', href: '#' },
   ],
 };
+
+export const PREVIEW_ENTRIES = [
+  { time: '2:30 PM', moodId: 'calm', text: 'Feeling calm after a productive morning. Finished the report ahead of schedule.' },
+  { time: '8:15 AM', moodId: 'neutral', text: 'Started the day with meditation. A bit anxious but feeling prepared.' },
+];
+
+export const PREVIEW_ACTIVITY = [
+  { action: 'Logged mood', detail: 'Calm', time: '2:30 PM' },
+  { action: 'Wrote journal', detail: '254 words', time: '2:35 PM' },
+  { action: 'Streak updated', detail: '7 days', time: '12:00 AM' },
+];
+
+export const PREVIEW_WEEKLY = [
+  { day: 'M', value: 60, emoji: '😀' },
+  { day: 'T', value: 80, emoji: '😊' },
+  { day: 'W', value: 70, emoji: '😊' },
+  { day: 'T', value: 90, emoji: '😀' },
+  { day: 'F', value: 45, emoji: '😢' },
+  { day: 'S', value: 65, emoji: '😰' },
+  { day: 'S', value: 85, emoji: '😊' },
+];
+
+export const AI_SHOWCASE = {
+  moodId: 'calm',
+  time: '2:30 PM',
+  entry: 'Today was productive. Finished the report ahead of schedule. Went for a walk in the park and felt the fresh air.',
+  reflection: 'You seem calm and centered today. Your entry shows a pattern of gratitude for small wins — this is strengthening your emotional resilience.',
+  trendPercentage: 40,
+  trendLabel: 'Calm days are trending +40% this week',
+  insight: 'Continue your evening wind-down routine. Your meditation practice is directly correlated with calmer, more productive days.',
+};
+
+export const GARDEN_SHOWCASE = {
+  streak: 7,
+  currentStageId: 'plant',
+  nextStageId: 'bloom',
+  daysToNext: 1,
+  progress: 87,
+};

@@ -6,7 +6,7 @@ import { useJournal } from '../../context/JournalContext';
 import { getMoodById } from '../../data/moods';
 import { staggerContainer, fadeUp } from '../../utils/animations';
 
-function EntryItem({ entry, index }) {
+function EntryItem({ entry }) {
   const mood = getMoodById(entry.moodId);
   const date = new Date(entry.createdAt);
   const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });

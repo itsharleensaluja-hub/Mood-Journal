@@ -4,6 +4,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { JournalProvider } from './context/JournalContext';
 import { Layout } from './components/layout/Layout';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { SkipToContent } from './components/common/SkipToContent';
 import { Spinner } from './components/common/Spinner';
 
 const LandingPage = lazy(() => import('./pages/LandingPage').then(m => ({ default: m.LandingPage })));
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <JournalProvider>
+        <SkipToContent />
         <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Routes>

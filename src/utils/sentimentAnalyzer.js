@@ -14,7 +14,7 @@ const WORDS_CACHE = new Map();
 function tokenize(text) {
   if (WORDS_CACHE.has(text)) return WORDS_CACHE.get(text);
   const words = text.toLowerCase()
-    .replace(/[.,!?;:'"()\[\]{}]/g, '')
+    .replace(/[.,!?;:'"()[\]{}]/g, '')
     .split(/\s+/)
     .filter(Boolean);
   WORDS_CACHE.set(text, words);

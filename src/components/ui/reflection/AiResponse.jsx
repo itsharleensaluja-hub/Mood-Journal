@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
-import { GlassCard } from '../../common/GlassCard';
+import { ArtifactCard } from '../../archive/ArtifactCard';
+import { HandwrittenText } from '../../archive/HandwrittenText';
+import { InkDivider } from '../../archive/InkDivider';
 import { TypewriterText } from './TypewriterText';
 import { BreathingExercise } from './BreathingExercise';
 import { QuoteCard } from './QuoteCard';
@@ -10,78 +12,81 @@ function saveGoal(goal) {
   try {
     window.localStorage.setItem('mindpulse-tomorrow-goal', goal);
   } catch {
-    // localStorage unavailable
+    // empty
   }
 }
 
 export function AiResponse({ response, isLoading }) {
   if (isLoading) {
     return (
-      <GlassCard padding="md" className="text-center">
-        <div className="flex items-center justify-center gap-2 mb-3">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
-            className="w-4 h-4 border-2 border-plum-300 border-t-plum-500 rounded-full"
-          />
-          <span className="text-sm text-ink-400 dark:text-ink-500">Reflecting on your words...</span>
+      <ArtifactCard variant="specimen" className="text-center">
+        <div className="py-8">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <div className="w-4 h-4 border-2 border-brass-300 border-t-brass-400 rounded-full animate-spin" />
+            <HandwrittenText size="sm" color="ink-500">Reading your letter...</HandwrittenText>
+          </div>
+          <div className="space-y-2 max-w-xs mx-auto">
+            <div className="h-3 bg-earth-200 dark:bg-ink-700 rounded w-full animate-pulse" />
+            <div className="h-3 bg-earth-200 dark:bg-ink-700 rounded w-3/4 animate-pulse mx-auto" style={{ animationDelay: '0.15s' }} />
+            <div className="h-3 bg-earth-200 dark:bg-ink-700 rounded w-1/2 animate-pulse mx-auto" style={{ animationDelay: '0.3s' }} />
+          </div>
         </div>
-        <div className="space-y-2">
-          <div className="h-3 bg-ink-200 dark:bg-ink-700 rounded w-full animate-pulse-soft" />
-          <div className="h-3 bg-ink-200 dark:bg-ink-700 rounded w-3/4 animate-pulse-soft" style={{ animationDelay: '0.15s' }} />
-          <div className="h-3 bg-ink-200 dark:bg-ink-700 rounded w-1/2 animate-pulse-soft" style={{ animationDelay: '0.3s' }} />
-        </div>
-      </GlassCard>
+      </ArtifactCard>
     );
   }
 
   if (!response) {
     return (
-      <GlassCard padding="md">
+      <ArtifactCard variant="specimen">
         <div className="text-center py-8">
           <div className="w-12 h-12 rounded-xl bg-earth-200 dark:bg-ink-800 flex items-center justify-center mx-auto mb-4">
-            <span className="text-lg">✦</span>
+            <span className="text-lg text-ink-400">✦</span>
           </div>
-          <p className="text-sm text-ink-400 dark:text-ink-500">
-            Write a journal entry and generate your AI reflection to see insights here.
-          </p>
+          <HandwrittenText size="sm" color="ink-500">
+            Write a letter above and send it. A reply will appear here.
+          </HandwrittenText>
         </div>
-      </GlassCard>
+      </ArtifactCard>
     );
   }
 
   return (
-    <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-4">
+    <motion.div variants={staggerContainer} initial="initial" animate="animate" className="space-y-6">
       <motion.div variants={fadeUp}>
-        <GlassCard padding="md" variant="highlight">
-          <h3 className="text-xs font-medium text-plum-500 dark:text-plum-400 uppercase tracking-wider mb-3">
-            AI Reflection
-          </h3>
+        <ArtifactCard variant="tipped">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-plum-400 text-sm">✦</span>
+            <HandwrittenText as="h3" size="sm" color="plum-600" className="typewriter text-[10px] uppercase tracking-widest">
+              AI Marginalia
+            </HandwrittenText>
+          </div>
           <TypewriterText text={response.reflection} speed={25} />
-        </GlassCard>
+        </ArtifactCard>
       </motion.div>
 
       <motion.div variants={fadeUp}>
-        <GlassCard padding="md">
-          <h4 className="text-xs font-medium text-herb-500 dark:text-herb-400 uppercase tracking-wider mb-2">
+        <ArtifactCard variant="pressed">
+          <HandwrittenText as="h4" size="sm" color="herb-500" className="typewriter text-[10px] uppercase tracking-widest mb-2">
             Personal Reflection
-          </h4>
-          <p className="text-sm text-ink-700 dark:text-ink-300 leading-relaxed">
+          </HandwrittenText>
+          <HandwrittenText size="base" className="text-ink-700 dark:text-ink-300 leading-relaxed">
             {response.fullReflection || response.reflection}
-          </p>
-        </GlassCard>
+          </HandwrittenText>
+        </ArtifactCard>
       </motion.div>
 
       <motion.div variants={fadeUp}>
-        <GlassCard padding="md" variant="accent" color="plum">
-          <h4 className="text-xs font-medium text-ink-400 dark:text-ink-500 uppercase tracking-wider mb-2">
+        <ArtifactCard variant="specimen">
+          <HandwrittenText as="h4" size="sm" color="ink-500" className="typewriter text-[10px] uppercase tracking-widest mb-2">
             Daily Affirmation
-          </h4>
-          <p className="text-base font-serif italic text-ink-800 dark:text-ink-200 leading-relaxed">
+          </HandwrittenText>
+          <HandwrittenText size="lg" className="text-ink-800 dark:text-ink-200 leading-relaxed">
             &ldquo;{response.affirmation}&rdquo;
-          </p>
-        </GlassCard>
+          </HandwrittenText>
+        </ArtifactCard>
       </motion.div>
+
+      <InkDivider />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <motion.div variants={fadeUp}>

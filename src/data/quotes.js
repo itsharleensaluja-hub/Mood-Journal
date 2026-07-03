@@ -35,6 +35,6 @@ export function getRandomQuote() {
   return QUOTES[Math.floor(Math.random() * QUOTES.length)];
 }
 
-export function getQuotesByCategory(category) {
+export function getQuotesByCategory(_category) {
   return QUOTES;
 }

@@ -19,7 +19,7 @@ export const Input = forwardRef(function Input({
     w-full bg-transparent border-b-2 transition-all duration-150
     text-ink-800 dark:text-ink-100
     placeholder:text-ink-400 dark:placeholder:text-ink-600
-    focus:outline-none
+    focus:outline-none focus-ring
     ${error
       ? 'border-clay-400 dark:border-clay-500 focus:border-clay-500'
       : 'border-ink-200 dark:border-ink-700 focus:border-plum-400 dark:focus:border-plum-500'
@@ -34,7 +34,7 @@ export const Input = forwardRef(function Input({
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-medium text-ink-700 dark:text-ink-300 mb-1">
+        <label htmlFor={inputId} className="block text-[13px] font-medium text-ink-700 dark:text-ink-300 mb-1">
           {label}
         </label>
       )}

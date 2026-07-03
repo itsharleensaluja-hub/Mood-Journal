@@ -1,5 +1,5 @@
 export const APP_NAME = 'MindPulse';
-export const APP_TAGLINE = 'Your AI Emotional Intelligence Companion';
+export const APP_TAGLINE = 'The Living Archive';
 export const STORAGE_KEYS = {
   THEME: 'mindpulse-theme',
   ENTRIES: 'mindpulse-entries',

@@ -1,4 +1,6 @@
 import { useJournal } from '../../context/JournalContext';
+import { HandwrittenText } from '../archive/HandwrittenText';
+import { AppLogo } from '../ui/AppLogo';
 
 function getTimeBasedGreeting() {
   const hour = new Date().getHours();
@@ -19,13 +21,19 @@ export function HeroGreeting() {
       : `${streak}-day streak going strong`;
 
   return (
-    <div className="mb-8">
-      <h1 className="text-2xl sm:text-3xl font-serif font-semibold text-ink-900 dark:text-ink-100 leading-tight">
-        {greeting}! <span className="text-plum-500">✦</span>
-      </h1>
-      <p className="mt-1.5 text-sm text-ink-400 dark:text-ink-500">
+    <div className="mb-6 text-center lg:text-left">
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-earth-200/50 dark:bg-ink-800/40 border border-earth-300/50 dark:border-ink-700/50 mb-3">
+        <AppLogo size="xs" variant="symbol" className="text-brass-400" />
+        <HandwrittenText size="sm" color="ink-500" className="tracking-wide">
+          MindPulse Archive
+        </HandwrittenText>
+      </div>
+      <HandwrittenText as="h1" size="xl" className="text-ink-900 dark:text-ink-100 leading-tight">
+        {greeting}!
+      </HandwrittenText>
+      <HandwrittenText size="sm" color="ink-500" className="mt-1">
         {streakLabel}
-      </p>
+      </HandwrittenText>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import { extractKeywords, findDominantCategory } from './sentimentAnalyzer';
 import { AI_TEMPLATES, BREATHING_EXERCISES } from '../data/aiResponses';
 import { getRandomQuote } from '../data/quotes';
-import { getMoodById } from '../data/moods';
 
 function getTimeOfDay() {
   const hour = new Date().getHours();
@@ -45,7 +44,6 @@ export function generateAiResponse({ text, moodId, userName }) {
   const name = userName || 'there';
   const keywords = extractKeywords(text);
   const dominantCategory = findDominantCategory(keywords, moodId);
-  const mood = getMoodById(moodId);
   const timeOfDay = getTimeOfDay();
   const topics = extractTopics(text);
 
@@ -82,7 +80,6 @@ export function generateAiResponse({ text, moodId, userName }) {
   const breathingKey = AI_TEMPLATES[dominantCategory]?.breathing || 'simple';
   const breathing = BREATHING_EXERCISES[breathingKey] || BREATHING_EXERCISES.simple;
 
-  let quoteCategory = AI_TEMPLATES[dominantCategory]?.quoteCategory || 'default';
   const quote = getRandomQuote();
 
   const moodMap = {

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GlassCard } from '../../common/GlassCard';
+import { ArtifactCard } from '../../archive/ArtifactCard';
+import { HandwrittenText } from '../../archive/HandwrittenText';
 
 export function BreathingExercise({ exercise }) {
   const [isActive, setIsActive] = useState(false);
@@ -9,11 +10,8 @@ export function BreathingExercise({ exercise }) {
   const intervalRef = useRef(null);
   const phaseTimerRef = useRef(null);
 
-  if (!exercise) return null;
-
-  const phases = exercise.phases || [];
+  const phases = exercise?.phases || [];
   const currentPhase = phases[phaseIndex] || phases[0];
-  const scale = currentPhase?.scale || 1;
 
   const startExercise = useCallback(() => {
     setIsActive(true);
@@ -52,32 +50,65 @@ export function BreathingExercise({ exercise }) {
     return () => clearInterval(intervalRef.current);
   }, [isActive, timeLeft]);
 
+  if (!exercise) return null;
+
   const progress = currentPhase ? 1 - (timeLeft / currentPhase.duration) : 0;
+  const flameScale = isActive ? (currentPhase?.scale || 1) * 0.6 : 0.6;
 
   return (
-    <GlassCard padding="md" className="text-center">
-      <h4 className="text-xs font-medium text-ink-500 dark:text-ink-400 uppercase tracking-wider mb-1">
+    <ArtifactCard variant="specimen" className="text-center">
+      <HandwrittenText as="h4" size="sm" color="ink-500" className="typewriter text-[10px] uppercase tracking-widest mb-1">
         {exercise.name}
-      </h4>
-      <p className="text-xs text-ink-400 dark:text-ink-500 mb-4">
+      </HandwrittenText>
+      <HandwrittenText size="xs" color="ink-500" className="mb-4">
         {exercise.instruction}
-      </p>
+      </HandwrittenText>
 
-      <div className="relative w-24 h-24 mx-auto mb-3">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            animate={{ scale: isActive ? scale : 1 }}
+      <div className="relative w-28 h-28 mx-auto mb-3">
+        <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+          <rect x="55" y="85" width="10" height="20" rx="3" fill="#8B5E3C" opacity="0.6" />
+          <ellipse cx="60" cy="85" rx="18" ry="4" fill="#5C3A24" opacity="0.3" />
+          <motion.g
+            animate={{ scale: flameScale }}
             transition={{ duration: currentPhase?.duration ? currentPhase.duration / 1000 : 4, ease: 'easeInOut' }}
-            className="w-16 h-16 rounded-full bg-plum-200 dark:bg-plum-700 opacity-50"
+            style={{ transformOrigin: '60px 60px' }}
+          >
+            <path d="M60 20 Q72 45 70 60 Q68 75 60 70 Q52 75 50 60 Q48 45 60 20Z" fill="#FBBF24" opacity={0.8} />
+            <path d="M60 25 Q68 45 66 58 Q64 68 60 65 Q56 68 54 58 Q52 45 60 25Z" fill="#FDE68A" opacity={0.9} />
+            <path d="M60 30 Q65 45 63 55 Q61 62 60 60 Q59 62 57 55 Q55 45 60 30Z" fill="#FEF3C7" />
+            <motion.circle
+              cx="60" cy="32" r="3" fill="#FFF"
+              animate={{ opacity: [0.6, 1, 0.6] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </motion.g>
+          <motion.path
+            d="M60 72 Q66 68 72 70"
+            stroke="#FBBF24"
+            strokeWidth="1"
+            fill="none"
+            animate={{ opacity: isActive ? [0.2, 0.5, 0.2] : 0.2 }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            animate={{ scale: isActive ? scale * 0.6 : 0.4 }}
-            transition={{ duration: currentPhase?.duration ? currentPhase.duration / 1000 : 4, ease: 'easeInOut' }}
-            className="w-10 h-10 rounded-full bg-herb-200 dark:bg-herb-700 opacity-40"
-          />
-        </div>
+        </svg>
+
+        {isActive && (
+          <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink-200 dark:text-ink-700" />
+            <motion.circle
+              cx="60" cy="60" r="50"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray={2 * Math.PI * 50}
+              animate={{ strokeDashoffset: 2 * Math.PI * 50 * (1 - progress) }}
+              transition={{ duration: 0.1, ease: 'linear' }}
+              className="text-brass-400"
+            />
+          </svg>
+        )}
+
         <div className="absolute inset-0 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.span
@@ -85,41 +116,24 @@ export function BreathingExercise({ exercise }) {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="text-xs font-medium text-ink-700 dark:text-ink-300"
+              className="handwriting text-sm text-ink-700 dark:text-ink-300"
             >
               {isActive ? (currentPhase?.label || 'Breathe') : 'Start'}
             </motion.span>
           </AnimatePresence>
         </div>
-
-        {isActive && (
-          <svg className="absolute inset-0 w-24 h-24 -rotate-90" viewBox="0 0 96 96">
-            <circle cx="48" cy="48" r="44" fill="none" stroke="currentColor" strokeWidth="2" className="text-ink-200 dark:text-ink-700" />
-            <motion.circle
-              cx="48" cy="48" r="44"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeDasharray={2 * Math.PI * 44}
-              animate={{ strokeDashoffset: 2 * Math.PI * 44 * (1 - progress) }}
-              transition={{ duration: 0.1, ease: 'linear' }}
-              className="text-plum-400"
-            />
-          </svg>
-        )}
       </div>
 
       <button
         onClick={isActive ? stopExercise : startExercise}
-        className={`px-4 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 active:scale-[0.97] ${
+        className={`handwriting text-base px-5 py-1.5 rounded-lg transition-all duration-150 active:scale-[0.97] focus-ring ${
           isActive
-            ? 'bg-clay-500 text-white hover:bg-clay-600'
-            : 'bg-plum-500 text-white hover:bg-plum-600'
+            ? 'bg-clay-500/10 text-clay-600 dark:text-clay-400 border border-clay-300/30'
+            : 'bg-brass-400/20 text-ink-700 dark:text-ink-300 border border-brass-400/30'
         }`}
       >
-        {isActive ? 'Stop' : 'Start'}
+        {isActive ? 'Extinguish' : 'Light candle'}
       </button>
-    </GlassCard>
+    </ArtifactCard>
   );
 }

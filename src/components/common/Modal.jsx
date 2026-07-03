@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { modalOverlay, modalContent } from '../../utils/animations';
 
 const sizes = {
   sm: 'max-w-sm',
@@ -63,9 +64,7 @@ export function Modal({
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            {...modalOverlay}
             className="absolute inset-0 bg-black/20 dark:bg-black/40"
             onClick={closeOnOverlay ? onClose : undefined}
             aria-hidden="true"
@@ -77,10 +76,7 @@ export function Modal({
             aria-modal="true"
             aria-label={title || 'Modal dialog'}
             tabIndex={-1}
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+            {...modalContent}
             className={`
               relative w-full ${sizes[size] || sizes.md}
               bg-earth-50 dark:bg-ink-800 border border-earth-200 dark:border-ink-700
@@ -88,7 +84,7 @@ export function Modal({
             `}
           >
             {(title || showCloseButton) && (
-              <div className="flex items-center justify-between px-5 pt-5 pb-2">
+              <div className="flex items-center justify-between p-5 pb-2">
                 {title && (
                   <h2 className="text-base font-serif font-semibold text-ink-900 dark:text-ink-100">
                     {title}
@@ -108,7 +104,7 @@ export function Modal({
               </div>
             )}
 
-            <div className="px-5 py-4">
+            <div className="p-5 pt-0">
               {children}
             </div>
           </motion.div>

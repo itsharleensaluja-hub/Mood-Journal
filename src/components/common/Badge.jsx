@@ -6,9 +6,9 @@ const colorVariants = {
 };
 
 const sizes = {
-  sm: 'px-2 py-0.5 text-xs',
-  md: 'px-3 py-1 text-sm',
-  lg: 'px-4 py-1.5 text-base',
+  sm: 'px-2 py-0.5 text-[11px] font-semibold leading-none',
+  md: 'px-3 py-1 text-xs font-medium leading-none',
+  lg: 'px-4 py-1.5 text-sm font-medium leading-none',
 };
 
 export function Badge({
