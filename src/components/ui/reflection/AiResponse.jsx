@@ -6,14 +6,11 @@ import { TypewriterText } from './TypewriterText';
 import { BreathingExercise } from './BreathingExercise';
 import { QuoteCard } from './QuoteCard';
 import { GoalInput } from './GoalInput';
+import api from '../../../hooks/useApi';
 import { staggerContainer, fadeUp } from '../../../utils/animations';
 
 function saveGoal(goal) {
-  try {
-    window.localStorage.setItem('mindpulse-tomorrow-goal', goal);
-  } catch {
-    // empty
-  }
+  api.put('/goals/today', { text: goal }).catch(() => {});
 }
 
 export function AiResponse({ response, isLoading }) {

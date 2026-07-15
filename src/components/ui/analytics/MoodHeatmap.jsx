@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, memo } from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../../common/GlassCard';
 import { useJournal } from '../../../context/JournalContext';
@@ -7,7 +7,7 @@ import { getMoodById } from '../../../data/moods';
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export function MoodHeatmap() {
+export const MoodHeatmap = memo(function MoodHeatmap() {
   const { entries } = useJournal();
 
   const heatmapData = useMemo(() => {
@@ -91,4 +91,4 @@ export function MoodHeatmap() {
       </div>
     </GlassCard>
   );
-}
+});

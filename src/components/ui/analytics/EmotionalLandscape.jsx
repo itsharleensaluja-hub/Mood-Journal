@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useJournal } from '../../../context/JournalContext';
@@ -45,7 +45,7 @@ function smoothPath(points) {
   return d;
 }
 
-export function EmotionalLandscape() {
+export const EmotionalLandscape = memo(function EmotionalLandscape() {
   const { entries } = useJournal();
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(null);
@@ -218,4 +218,4 @@ export function EmotionalLandscape() {
       </div>
     </div>
   );
-}
+});

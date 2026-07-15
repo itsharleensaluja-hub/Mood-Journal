@@ -8,7 +8,7 @@ import { DeskLamp } from '../components/archive/DeskLamp';
 import { ReflectionEntry } from '../components/ui/reflection/ReflectionEntry';
 import { AiResponse } from '../components/ui/reflection/AiResponse';
 import { SoundscapePhonograph } from '../components/ui/SoundscapePhonograph';
-import { generateAiResponse } from '../utils/aiEngine';
+import api from '../hooks/useApi';
 import { staggerContainer, fadeUp } from '../utils/animations';
 
 export function ReflectionPage() {
@@ -19,16 +19,17 @@ export function ReflectionPage() {
     setIsLoading(true);
     setResponse(null);
 
-    await new Promise(resolve => setTimeout(resolve, 1500 + Math.random() * 1000));
-
-    const aiResponse = generateAiResponse({
-      text,
-      moodId: moodId || 'neutral',
-      userName: 'there',
-    });
-
-    setResponse(aiResponse);
-    setIsLoading(false);
+    try {
+      const { data } = await api.post('/ai/reflect', {
+        text,
+        moodId: moodId || 'neutral',
+      });
+      setResponse(data);
+    } catch {
+      setResponse(null);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   return (

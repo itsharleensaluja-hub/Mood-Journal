@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Notebook } from '../components/archive/Notebook';
@@ -5,13 +6,15 @@ import { HandwrittenText } from '../components/archive/HandwrittenText';
 import { InkDivider } from '../components/archive/InkDivider';
 import { Marginalia } from '../components/archive/Marginalia';
 import { useJournal } from '../context/JournalContext';
-import { MoodHeatmap } from '../components/ui/analytics/MoodHeatmap';
-import { EmotionalLandscape } from '../components/ui/analytics/EmotionalLandscape';
 import { EmotionTags } from '../components/ui/analytics/EmotionTags';
 import { MonthlyScoreCard } from '../components/ui/analytics/MonthlyScoreCard';
 import { StatCard } from '../components/ui/analytics/StatCard';
 import { ArtifactCard } from '../components/archive/ArtifactCard';
+import { Skeleton } from '../components/common/Skeleton';
 import { staggerContainer, fadeUp } from '../utils/animations';
+
+const MoodHeatmap = lazy(() => import('../components/ui/analytics/MoodHeatmap').then(m => ({ default: m.MoodHeatmap })));
+const EmotionalLandscape = lazy(() => import('../components/ui/analytics/EmotionalLandscape').then(m => ({ default: m.EmotionalLandscape })));
 
 function SpecimenHeader() {
   const { entries, stats } = useJournal();
@@ -92,13 +95,17 @@ export function AnalyticsPage() {
                   <HandwrittenText as="h3" size="base" color="ink-600" className="mb-4">
                     Pressed Flower Collection
                   </HandwrittenText>
-                  <MoodHeatmap />
+                  <Suspense fallback={<Skeleton variant="chart" />}>
+                    <MoodHeatmap />
+                  </Suspense>
                 </div>
 
                 <InkDivider />
 
                 <ArtifactCard variant="specimen" className="p-4 sm:p-6">
-                  <EmotionalLandscape />
+                  <Suspense fallback={<Skeleton variant="chart" />}>
+                    <EmotionalLandscape />
+                  </Suspense>
                 </ArtifactCard>
 
                 <InkDivider />

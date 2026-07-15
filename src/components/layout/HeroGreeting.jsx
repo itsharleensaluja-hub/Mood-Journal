@@ -1,4 +1,5 @@
 import { useJournal } from '../../context/JournalContext';
+import { useAuth } from '../../context/AuthContext';
 import { HandwrittenText } from '../archive/HandwrittenText';
 import { AppLogo } from '../ui/AppLogo';
 
@@ -11,6 +12,7 @@ function getTimeBasedGreeting() {
 
 export function HeroGreeting() {
   const { stats } = useJournal();
+  const { user } = useAuth();
   const streak = stats?.streak?.current || 0;
   const greeting = getTimeBasedGreeting();
 
@@ -29,7 +31,7 @@ export function HeroGreeting() {
         </HandwrittenText>
       </div>
       <HandwrittenText as="h1" size="xl" className="text-ink-900 dark:text-ink-100 leading-tight">
-        {greeting}!
+        {greeting}{user ? `, ${user.name.split(' ')[0]}` : ''}!
       </HandwrittenText>
       <HandwrittenText size="sm" color="ink-500" className="mt-1">
         {streakLabel}

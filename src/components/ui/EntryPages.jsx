@@ -1,9 +1,11 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useJournal } from '../../context/JournalContext';
 import { getMoodById } from '../../data/moods';
 import { HandwrittenText } from '../archive/HandwrittenText';
 import { PressedFlower } from '../archive/PressedFlower';
+import { Pagination } from '../common/Pagination';
+import { SkeletonList } from '../common/Skeleton';
+import { EmptyState } from '../common/EmptyState';
 import { fadeUp } from '../../utils/animations';
 
 function EntryPage({ entry, isLast }) {
@@ -39,10 +41,28 @@ function EntryPage({ entry, isLast }) {
 }
 
 export function EntryPages() {
-  const [showAll, setShowAll] = useState(false);
-  const { getRecentEntries } = useJournal();
-  const entries = getRecentEntries(5);
-  const hasMore = entries.length > 4;
+  const { entries, isLoaded, page, paginationMeta, changePage } = useJournal();
+
+  if (!isLoaded) {
+    return (
+      <div>
+        <HandwrittenText as="h3" size="sm" color="ink-500" className="uppercase tracking-wider typewriter text-[11px] mb-3">
+          Recent pages
+        </HandwrittenText>
+        <SkeletonList count={3} variant="line" />
+      </div>
+    );
+  }
+
+  if (entries.length === 0) {
+    return (
+      <EmptyState
+        icon="📄"
+        title="No entries yet"
+        description="Write something above to start your collection of pages."
+      />
+    );
+  }
 
   return (
     <div>
@@ -50,27 +70,20 @@ export function EntryPages() {
         <HandwrittenText as="h3" size="sm" color="ink-500" className="uppercase tracking-wider typewriter text-[11px]">
           Recent pages
         </HandwrittenText>
-        {hasMore && (
-          <button
-            onClick={() => setShowAll(!showAll)}
-            className="handwriting text-sm text-ink-400 hover:text-ink-700 dark:text-ink-500 dark:hover:text-ink-300 transition-colors focus-ring px-1"
-          >
-            {showAll ? 'Close' : 'All pages'}
-          </button>
-        )}
       </div>
 
-      {entries.length === 0 ? (
-        <HandwrittenText size="sm" color="ink-500" className="py-6 text-center block">
-          No entries yet. Write something above.
-        </HandwrittenText>
-      ) : (
-        <motion.div initial="initial" animate="animate">
-          {(showAll ? entries : entries.slice(0, 4)).map((entry, i) => (
-            <EntryPage key={entry.id} entry={entry} index={i} isLast={i === (showAll ? entries.length : Math.min(4, entries.length)) - 1} />
-          ))}
-        </motion.div>
-      )}
+      <motion.div initial="initial" animate="animate">
+        {entries.map((entry, i) => (
+          <EntryPage key={entry._id} entry={entry} isLast={i === entries.length - 1} />
+        ))}
+      </motion.div>
+
+      <Pagination
+        page={page}
+        pages={paginationMeta.pages}
+        total={paginationMeta.total}
+        onPageChange={changePage}
+      />
     </div>
   );
 }
