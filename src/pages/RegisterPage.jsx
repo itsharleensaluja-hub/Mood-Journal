@@ -109,14 +109,14 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center">
+        <div className="mt-6 text-center">
           <HandwrittenText size="sm" color="ink-500">
             Already have an account?{' '}
             <Link to="/login" className="text-brass-500 hover:text-brass-400 underline underline-offset-2">
               Sign in
             </Link>
           </HandwrittenText>
-        </p>
+        </div>
 
         <p className="mt-8 text-center">
           <Link to="/" className="handwriting text-sm text-ink-400 hover:text-ink-600 dark:hover:text-ink-300 transition-colors">
