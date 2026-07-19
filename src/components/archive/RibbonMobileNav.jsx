@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom';
 const items = [
   { path: '/dashboard', label: 'Journal', icon: '◈' },
   { path: '/analytics', label: 'Archive', icon: '◇' },
+  { path: '/wellness', label: 'Wellness', icon: '◎' },
   { path: '/reflection', label: 'Desk', icon: '✦' },
+  { path: '/counseling', label: 'Counseling', icon: '⊚' },
 ];
 
 export function RibbonMobileNav() {

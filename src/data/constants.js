@@ -11,5 +11,7 @@ export const STORAGE_KEYS = {
 export const NAV_ITEMS = [
   { path: '/dashboard', label: 'Dashboard', icon: 'HiOutlineHome' },
   { path: '/analytics', label: 'Analytics', icon: 'HiOutlineChartBar' },
+  { path: '/wellness', label: 'Wellness', icon: 'HiOutlineHeart' },
   { path: '/reflection', label: 'Reflection', icon: 'HiOutlineSparkles' },
+  { path: '/counseling', label: 'Counseling', icon: 'HiOutlineShieldCheck' },
 ];

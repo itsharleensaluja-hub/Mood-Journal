@@ -17,6 +17,8 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const HomePage = lazy(() => import('./pages/HomePage').then(m => ({ default: m.HomePage })));
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage').then(m => ({ default: m.AnalyticsPage })));
 const ReflectionPage = lazy(() => import('./pages/ReflectionPage').then(m => ({ default: m.ReflectionPage })));
+const CounselingPage = lazy(() => import('./pages/CounselingPage').then(m => ({ default: m.CounselingPage })));
+const WellnessPage = lazy(() => import('./pages/WellnessPage').then(m => ({ default: m.WellnessPage })));
 
 function PageLoader() {
   return (
@@ -44,6 +46,8 @@ export default function App() {
                       <Route path="/dashboard" element={<HomePage />} />
                       <Route path="/analytics" element={<AnalyticsPage />} />
                       <Route path="/reflection" element={<ReflectionPage />} />
+                      <Route path="/counseling" element={<CounselingPage />} />
+                      <Route path="/wellness" element={<WellnessPage />} />
                     </Route>
                   </Route>
                   <Route path="*" element={<NotFoundPage />} />

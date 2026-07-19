@@ -53,6 +53,32 @@ export function LeatherTabNav() {
               </>
             )}
           </NavLink>
+          <NavLink
+            to="/wellness"
+            className="flex items-center gap-2 px-5 py-2 rounded-t-lg text-sm font-medium transition-all duration-200 bg-leather-400/10 dark:bg-leather-700/20 border border-b-0 border-earth-300 dark:border-ink-700 text-ink-500 dark:text-ink-400 hover:text-ink-800 dark:hover:text-ink-200 hover:bg-leather-400/20 dark:hover:bg-leather-700/30 focus-ring"
+            style={{ marginBottom: '-1px' }}
+          >
+            {({ isActive }) => (
+              <>
+                <span className={`text-base ${isActive ? 'text-herb-400' : 'text-ink-300'}`}>◎</span>
+                <span className={`handwriting text-lg ${isActive ? 'text-ink-800 dark:text-ink-100' : ''}`}>Wellness</span>
+                {isActive && <span className="w-1 h-1 rounded-full bg-herb-400 ml-1" />}
+              </>
+            )}
+          </NavLink>
+          <NavLink
+            to="/counseling"
+            className="flex items-center gap-2 px-5 py-2 rounded-t-lg text-sm font-medium transition-all duration-200 bg-leather-400/10 dark:bg-leather-700/20 border border-b-0 border-earth-300 dark:border-ink-700 text-ink-500 dark:text-ink-400 hover:text-ink-800 dark:hover:text-ink-200 hover:bg-leather-400/20 dark:hover:bg-leather-700/30 focus-ring"
+            style={{ marginBottom: '-1px' }}
+          >
+            {({ isActive }) => (
+              <>
+                <span className={`text-base ${isActive ? 'text-plum-400' : 'text-ink-300'}`}>⊚</span>
+                <span className={`handwriting text-lg ${isActive ? 'text-ink-800 dark:text-ink-100' : ''}`}>Counseling</span>
+                {isActive && <span className="w-1 h-1 rounded-full bg-plum-400 ml-1" />}
+              </>
+            )}
+          </NavLink>
           <div className="flex-1" />
 
           {user && (

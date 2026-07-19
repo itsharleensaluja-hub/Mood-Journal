@@ -43,12 +43,12 @@ export function BreathingExercise({ exercise }) {
   }, []);
 
   useEffect(() => {
-    if (!isActive || !timeLeft) return;
+    if (!isActive) return;
     intervalRef.current = setInterval(() => {
       setTimeLeft(prev => Math.max(0, prev - 100));
     }, 100);
     return () => clearInterval(intervalRef.current);
-  }, [isActive, timeLeft]);
+  }, [isActive]);
 
   if (!exercise) return null;
 

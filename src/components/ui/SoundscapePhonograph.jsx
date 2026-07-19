@@ -16,7 +16,10 @@ function createMoodSound(ctx, moodId) {
     const bufSize = ctx.sampleRate * 2;
     const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
     const data = buf.getChannelData(0);
-    for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+    for (let i = 0; i < bufSize; i++) {
+      const env = 0.5 - 0.5 * Math.cos((2 * Math.PI * i) / bufSize);
+      data[i] = (Math.random() * 2 - 1) * env;
+    }
     const src = ctx.createBufferSource();
     src.buffer = buf;
     src.loop = true;
@@ -140,6 +143,7 @@ export function SoundscapePhonograph() {
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
     const ctx = new AudioCtx();
+    ctx.resume();
     ctxRef.current = ctx;
     nodesRef.current = createMoodSound(ctx, currentMood || 'neutral');
     setIsPlaying(true);

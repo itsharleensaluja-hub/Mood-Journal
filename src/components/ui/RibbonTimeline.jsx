@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useJournal } from '../../context/JournalContext';
 import { HandwrittenText } from '../archive/HandwrittenText';
+import { getMoodById } from '../../data/moods';
 
 export function RibbonTimeline() {
   const { stats } = useJournal();
@@ -20,15 +21,15 @@ export function RibbonTimeline() {
             transition={{ delay: index * 0.05, duration: 0.3 }}
             className="flex flex-col items-center gap-1 flex-1"
           >
-            <span className="text-xs">{day.mood ? day.mood.emoji : '·'}</span>
+            <span className="text-xs">{getMoodById(day.moodId) ? getMoodById(day.moodId).emoji : '·'}</span>
             <div className="flex-1 w-full flex flex-col justify-end">
               <motion.div
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 transition={{ delay: index * 0.05 + 0.15, duration: 0.35, ease: 'easeOut' }}
                 style={{
-                  backgroundColor: day.mood?.color || 'var(--color-ink-200)',
-                  opacity: day.mood ? 0.7 : 0.15,
+                  backgroundColor: getMoodById(day.moodId)?.color || 'var(--color-ink-200)',
+                  opacity: day.moodId ? 0.7 : 0.15,
                   transformOrigin: 'bottom',
                   minHeight: '4px',
                 }}
